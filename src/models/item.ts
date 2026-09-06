@@ -10,26 +10,21 @@ export interface Item {
   updatedAt: string;
 }
 
-/** Shape of the payload accepted when creating a new item. */
+/* Shape of the payload accepted when creating a new item. */
 export interface CreateItemInput {
   name: string;
   quantity: number;
   purchased?: boolean;
 }
 
-/** Shape of the payload accepted when updating an existing item — every field optional. */
+/* Shape of the payload accepted when updating an existing item, every field optional. */
 export interface UpdateItemInput {
   name?: string;
   quantity?: number;
   purchased?: boolean;
 }
 
-/**
- * In-memory data store for shopping list items.
- *
- * This intentionally holds everything in a plain array in memory, per the
- * project spec — data resets whenever the server restarts. Swapping this
- * out for a real database later would only mean changing this one class.
+/* In-memory data store for shopping list items
  */
 class ItemStore {
   private items: Item[] = [];
