@@ -1,8 +1,6 @@
 import { randomUUID } from 'crypto';
 
-/**
- * A single shopping list item.
- */
+/* A single shopping list item.*/
 export interface Item {
   id: string;
   name: string;
