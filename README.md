@@ -67,7 +67,7 @@ Shopping List API listening on http://localhost:3000
 
 ## Data Model
 
-Every shopping list item has this shape:
+Shopping list item has this shape:
 
 ```ts
 interface Item {
