@@ -1,6 +1,6 @@
 import { randomUUID } from 'crypto';
 
-/* A single shopping list item.*/
+// A single shopping list item
 export interface Item {
   id: string;
   name: string;
@@ -10,22 +10,21 @@ export interface Item {
   updatedAt: string;
 }
 
-/* Shape of the payload accepted when creating a new item. */
+// Shape of the payload accepted when creating a new item
 export interface CreateItemInput {
   name: string;
   quantity: number;
   purchased?: boolean;
 }
 
-/* Shape of the payload accepted when updating an existing item, every field optional. */
+// Shape of the payload accepted when updating an existing item, every field optional
 export interface UpdateItemInput {
   name?: string;
   quantity?: number;
   purchased?: boolean;
 }
 
-/* In-memory data store for shopping list items
- */
+// In-memory data store for shopping list items
 class ItemStore {
   private items: Item[] = [];
 
@@ -37,6 +36,7 @@ class ItemStore {
     return this.items.find((item) => item.id === id);
   }
 
+  // Creates a new item, adds it to the store, and returns it
   create(input: CreateItemInput): Item {
     const now = new Date().toISOString();
     const newItem: Item = {
@@ -51,6 +51,7 @@ class ItemStore {
     return newItem;
   }
 
+  // Updates an existing item, returns the updated item
   update(id: string, updates: UpdateItemInput): Item | undefined {
     const item = this.getById(id);
     if (!item) return undefined;
@@ -71,6 +72,5 @@ class ItemStore {
   }
 }
 
-// A single shared instance — every request handler works against the same
 // in-memory list for the lifetime of the process.
 export const itemStore = new ItemStore();

@@ -38,11 +38,7 @@ export function validateCreateItem(body: unknown): CreateItemInput {
   };
 }
 
-/**
- * Validates a PUT /items/:id payload. All fields are optional, but any
- * field that IS present must be the correct type, and at least one field
- * must be provided (an update with nothing to update is itself invalid).
- */
+// Validates a PUT /items/:id payload
 export function validateUpdateItem(body: unknown): UpdateItemInput {
   if (typeof body !== 'object' || body === null || Array.isArray(body)) {
     throw badRequest('Request body must be a JSON object.');
