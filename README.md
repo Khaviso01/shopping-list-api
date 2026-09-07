@@ -1,6 +1,6 @@
 # Shopping List API
 
-A REST API for managing a shopping list — add items, view them, update their name/quantity/purchased status, and remove them. Built with **Node.js** and **TypeScript** using only the built-in `http` module (no Express or other web framework).
+A REST API for managing a shopping list — add items, view them, update their name/quantity/purchased status, and remove them. Built with **Node.js** and **TypeScript** using only the built-in `http` module.
 
 ## Tech Stack
 
