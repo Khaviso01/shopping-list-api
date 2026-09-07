@@ -1,17 +1,17 @@
 import { IncomingMessage, ServerResponse } from 'http';
 
-// Every successful response follows this exact shape.
+// Every successful response follows this exact shape
 export interface SuccessResponse<T> {
   success: true;
   data: T;
 }
 
-// Every error response follows this exact shape.
+// Every error response follows this exact shape
 export interface ErrorResponse {
   success: false;
   error: {
     message: string;
-    // Machine-readable error code, useful for client-side branching.
+    // Machine-readable error code, useful for client-side branching
     code: 'BAD_REQUEST' | 'NOT_FOUND' | 'INTERNAL_ERROR';
   };
 }
@@ -31,21 +31,21 @@ export class ApiError extends Error {
 export const badRequest = (message: string) => new ApiError(400, 'BAD_REQUEST', message);
 export const notFound = (message: string) => new ApiError(404, 'NOT_FOUND', message);
 
-// Sends a 2xx JSON response with the standard success: true, data shape.
+// Sends a 2xx JSON response with the standard success: true, data shape
 export function sendSuccess<T>(res: ServerResponse, status: number, data: T): void {
   const body: SuccessResponse<T> = { success: true, data };
   res.writeHead(status, { 'Content-Type': 'application/json' });
   res.end(JSON.stringify(body));
 }
 
-// Sends a JSON error response with the standard success: false, error shape. 
+// Sends a JSON error response with the standard success: false, error shape
 export function sendError(res: ServerResponse, status: number, code: ErrorResponse['error']['code'], message: string): void {
   const body: ErrorResponse = { success: false, error: { message, code } };
   res.writeHead(status, { 'Content-Type': 'application/json' });
   res.end(JSON.stringify(body));
 }
 
-// Sends an empty response (used for 204 No Content on successful deletes).
+// Sends an empty response (used for 204 No Content on successful deletes)
 export function sendNoContent(res: ServerResponse): void {
   res.writeHead(204);
   res.end();

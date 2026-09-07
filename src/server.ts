@@ -1,18 +1,18 @@
-import http, { IncomingMessage, ServerResponse } from 'http';
+import http, { IncomingMessage, ServerResponse } from 'http'; //imports core HTTP modules
 import { URL } from 'url';
 import { ApiError, sendError } from './utils/http';
 import { getAllItems, getItemById, createItem, updateItem, deleteItem } from './controllers/itemsController';
 
 const PORT = Number(process.env.PORT) || 3000;
 
-// Route handler function
+// Request handler function
 async function route(req: IncomingMessage, res: ServerResponse): Promise<void> {
   const method = req.method ?? 'GET';
   const url = new URL(req.url ?? '/', `http://${req.headers.host ?? 'localhost'}`);
   // Split the path into segments, dropping empty strings from leading/trailing slashes
   const segments = url.pathname.split('/').filter(Boolean);
 
-  // Only /items and /items/:id are recognized routes
+  // /items and /items/:id by route matching, otherwise 404. All other paths are invalid
   if (segments[0] !== 'items') {
     throw new ApiError(404, 'NOT_FOUND', `Cannot ${method} ${url.pathname}.`);
   }

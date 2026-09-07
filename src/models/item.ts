@@ -64,6 +64,7 @@ class ItemStore {
     return item;
   }
 
+  // deletes an item by id, returns true if deleted, false if not found
   delete(id: string): boolean {
     const index = this.items.findIndex((item) => item.id === id);
     if (index === -1) return false;
