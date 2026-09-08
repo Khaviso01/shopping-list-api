@@ -1,7 +1,7 @@
 import { IncomingMessage, ServerResponse } from 'http';
-import { itemStore } from '../models/item';
-import { parseJsonBody, sendSuccess, sendNoContent, notFound } from '../utils/http';
-import { validateCreateItem, validateUpdateItem } from '../utils/validation';
+import { itemStore } from '../models/item.js';
+import { parseJsonBody, sendSuccess, sendNoContent, notFound } from '../utils/http.js';
+import { validateCreateItem, validateUpdateItem } from '../utils/validation.js';
 
 // GET /items  returns every item on the list. 
 export function getAllItems(_req: IncomingMessage, res: ServerResponse): void {
