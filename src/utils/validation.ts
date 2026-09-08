@@ -1,5 +1,5 @@
-import { badRequest } from './http';
-import type { CreateItemInput, UpdateItemInput } from '../models/item';
+import { badRequest } from './http.js';
+import type { CreateItemInput, UpdateItemInput } from '../models/item.js';
 
 /**
  * Validates a POST /items payload. Throws a 400 ApiError (via badRequest)
