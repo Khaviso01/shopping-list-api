@@ -1,7 +1,7 @@
 import http, { IncomingMessage, ServerResponse } from 'http'; //imports core HTTP modules
 import { URL } from 'url';
-import { ApiError, sendError } from './utils/http';
-import { getAllItems, getItemById, createItem, updateItem, deleteItem } from './controllers/itemsController';
+import { ApiError, sendError } from './utils/http.js';
+import { getAllItems, getItemById, createItem, updateItem, deleteItem } from './controllers/itemsController.js';
 
 const PORT = Number(process.env.PORT) || 3000;
 
