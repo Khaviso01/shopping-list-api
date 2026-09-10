@@ -342,32 +342,6 @@ Validation and lookup errors are thrown as a typed `ApiError` from anywhere in t
 | `405` | A recognized route (`/items` or `/items/:id`) called with an unsupported HTTP method |
 | `500` | Any unexpected/unhandled error (logged to the server console for debugging) |
 
-## Testing with Postman (or curl)
-
-Import these requests into Postman, or run them directly with curl. Base URL: `http://localhost:3000`.
-
-```bash
-# Get all items
-curl http://localhost:3000/items
-
-# Create an item
-curl -X POST http://localhost:3000/items \
-  -H "Content-Type: application/json" \
-  -d '{"name":"Milk","quantity":2}'
-
-# Get one item (replace :id with a real id from the create response)
-curl http://localhost:3000/items/:id
-
-# Update an item
-curl -X PUT http://localhost:3000/items/:id \
-  -H "Content-Type: application/json" \
-  -d '{"quantity":3,"purchased":true}'
-
-# Delete an item
-curl -X DELETE http://localhost:3000/items/:id
-```
-
 ## Known Limitations
 
-- **Data is in-memory only** — restarting the server clears the entire list. This is intentional per the project spec (Sprint 2: "Store items in memory"); swapping in a real database or file-based persistence would only require changing `src/models/item.ts`.
-- No authentication — every request can read/write every item, since the spec doesn't call for multi-user support.
+- **Data is in-memory only** — restarting the server clears the entire list.
