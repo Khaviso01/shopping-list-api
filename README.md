@@ -109,6 +109,113 @@ Every response is JSON with a consistent envelope, so client code can check `suc
 
 `code` is one of `BAD_REQUEST`, `NOT_FOUND`, or `INTERNAL_ERROR`.
 
+## Testing the API with Postman
+
+### Step 1 — Install Postman
+
+Download from [postman.com/downloads](https://www.postman.com/downloads/) if you don't have it, install, and open it. You can skip signing in / creating an account if it prompts — there's usually a "skip" or "guest" option.
+
+### Step 2 — Make sure your server is running
+
+In your terminal:
+
+```powershell
+npm run dev
+```
+
+Leave that window open and running in the background.
+
+### Step 3 — Create your first request (GET all items)
+
+1. Click the **+** tab (or "New" → "HTTP Request") to open a new request tab.
+2. In the dropdown on the left of the URL bar, make sure it says **GET**.
+3. In the URL bar, type:
+   ```
+   http://localhost:3000/items
+   ```
+4. Click the blue **Send** button.
+5. You should see in the response panel below:
+   ```json
+   {
+       "success": true,
+       "data": []
+   }
+   ```
+   with status **200 OK** shown near the top right of the response.
+
+If you see that — it's working. ✅
+
+### Step 4 — Create an item (POST)
+
+1. Click **+** again for a new tab.
+2. Change the method dropdown from GET to **POST**.
+3. URL: `http://localhost:3000/items`
+4. Just below the URL bar, click the **Body** tab.
+5. Select the **raw** radio button.
+6. On the right side of that same row, there's a dropdown (probably says "Text") — change it to **JSON**.
+7. In the big text box, paste:
+   ```json
+   {
+     "name": "Milk",
+     "quantity": 2
+   }
+   ```
+8. Click **Send**.
+9. You should get **201 Created** and a response like:
+   ```json
+   {
+       "success": true,
+       "data": {
+           "id": "0a11c30c-96c3-49ff-81d6-c7a47808d969",
+           "name": "Milk",
+           "quantity": 2,
+           "purchased": false,
+           "createdAt": "...",
+           "updatedAt": "..."
+       }
+   }
+   ```
+
+Copy that `id` value — highlight it and Ctrl+C. You'll need it for the next steps.
+
+### Step 5 — Get that one item (GET by id)
+
+1. New tab → **GET**
+2. URL: `http://localhost:3000/items/PASTE_YOUR_ID_HERE`
+3. Send → should return `200 OK` with that single item.
+
+### Step 6 — Update it (PUT)
+
+1. New tab → **PUT**
+2. URL: `http://localhost:3000/items/PASTE_YOUR_ID_HERE`
+3. Body tab → raw → JSON, paste:
+   ```json
+   {
+     "quantity": 3,
+     "purchased": true
+   }
+   ```
+4. Send → `200 OK`, and the response should show `"quantity": 3, "purchased": true` now.
+
+### Step 7 — Delete it (DELETE)
+
+1. New tab → **DELETE**
+2. URL: `http://localhost:3000/items/PASTE_YOUR_ID_HERE`
+3. Send → should show **204 No Content** with an empty body.
+
+### Step 8 — Try the error cases (for your test documentation)
+
+1. New tab → **POST** → `http://localhost:3000/items` → Body raw/JSON:
+   ```json
+   {}
+   ```
+   Send → should get **400 Bad Request** with a message like `"name" is required.`
+
+2. New tab → **GET** → `http://localhost:3000/items/doesnotexist` → Send → should get **404 Not Found**.
+
+
+### Install Postman
+
 ## API Endpoints
 
 ### `GET /items`
